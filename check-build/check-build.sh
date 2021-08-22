@@ -1,4 +1,4 @@
-
+# wget https://raw.github.com/recro/medulla-frontend/main/auto_build_and_deploy.sh && chmod +x auto_build_and_deploy.sh && ./auto_build_and_deploy.sh
 
 if [ ! -d "medulla-frontend" ]; then
   echo "directory does not exist";
@@ -22,10 +22,12 @@ do
     echo "It's there."
   else
     echo "local repository does not contain the latest hash so rebuilding";
-    git --git-dir=./medulla-frontend/.git pull
+    git --git-dir=./medulla-frontend/.git fetch
+    git --git-dir=./medulla-frontend/.git reset --hard origin/main
     echo "building docker file";
     cd "$(dirname "$0")" || exit 1
     cd ./medulla-frontend/frontend/ || exit 1
+    docker rmi recrodeveloper/medulla-frontend:latest
     docker build -t recrodeveloper/medulla-frontend:latest .
     cd ../../
     docker push recrodeveloper/medulla-frontend:latest
@@ -33,10 +35,3 @@ do
     docker run -d --rm -p 80:5000 --name=medulla recrodeveloper/medulla-frontend:latest
   fi
 done
-
-
-
-
-
-
-
