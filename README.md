@@ -1,3 +1,12 @@
+# To Start Application
+- clone the application to a local hosting server
+- start the build docker image by running `docker run --privileged -e DOCKER_USERNAME={username} -e DOCKER_PASSWORD={password} -d --rm --name=build-image build-image`
+- create an environment variable `MATCH_ACCESS_KEY` and set it to an accesskey
+- start the webserver by running `node dist/`
+- setup a github workflow that sends a get request to the host server at `http://{host serverdomain}:5000/build?accessKey={accessKey}` whenever there is a commit push
+
+
+
 # Docker Images Building
 
 ### In order to run the build image docker image run:
