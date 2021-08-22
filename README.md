@@ -1,5 +1,6 @@
 # To Start Application
 - clone the application to a local hosting server
+- build the build docker image by running `cd build-image/ && docker build -t build-image .`
 - start the build docker image by running `docker run --privileged -e DOCKER_USERNAME={username} -e DOCKER_PASSWORD={password} -d --rm --name=build-image build-image`
 - create an environment variable `MATCH_ACCESS_KEY` and set it to an accesskey
 - start the webserver by running `node dist/`
